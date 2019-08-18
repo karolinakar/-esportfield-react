@@ -28,6 +28,7 @@ export class Map extends React.Component {
             viewport: this.state.viewport,
             markers: this.state.markers.concat(new MarkerModel(this.state.markers.length + 1, event.lngLat[0], event.lngLat[1]))
         });
+        this.props.onMarkersChange(this.state.markers);
     }
 
     updateMarker(event, id){
@@ -46,6 +47,7 @@ export class Map extends React.Component {
             viewport: this.state.viewport,
             markers: updatedMarkers
         });
+        this.props.onMarkersChange(this.state.markers);
     }
 
     render() {

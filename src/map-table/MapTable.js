@@ -1,20 +1,21 @@
 import BootstrapTable from 'react-bootstrap-table-next';
 import React from "react";
 
-const products = [];
 const columns = [{
     dataField: 'id',
     text: 'ID'
 }, {
-    dataField: 'name',
-    text: 'Szerokość geograficzna'
-}, {
-    dataField: 'price',
+    dataField: 'longitude',
     text: 'Długość geograficzna'
+}, {
+    dataField: 'latitude',
+    text: 'Szerokość geograficzna'
 }];
 
-export function MapTable() {
-    return (
-         <BootstrapTable keyField='id' data={ products } columns={ columns } />
-    );
+export class MapTable extends React.Component {
+    render() {
+        return (
+            <BootstrapTable keyField='id' data={this.props.markers} columns={columns}/>
+        );
+    }
 }

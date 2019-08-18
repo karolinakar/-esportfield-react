@@ -5,6 +5,11 @@ import {MapTable} from './map-table/MapTable';
 import {Map} from './map/Map';
 
 export class App extends React.Component {
+
+    state = {
+        markers: []
+    };
+
     render() {
         return (
             <Accordion defaultActiveKey="0">
@@ -16,7 +21,8 @@ export class App extends React.Component {
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
-                            <Map />
+                            <Map markers={this.state.markers}
+                                 onMarkersChange={(markers) => this.setState({markers: markers})}/>
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -28,7 +34,7 @@ export class App extends React.Component {
                     </Card.Header>
                     <Accordion.Collapse eventKey="1">
                         <Card.Body>
-                            <MapTable/>
+                            <MapTable markers={this.state.markers} />
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>

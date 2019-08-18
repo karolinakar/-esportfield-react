@@ -2,8 +2,8 @@ import React from 'react';
 import ReactMapGL, {Marker} from 'react-map-gl';
 import {MarkerModel} from "../model";
 import './Map.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbtack } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons'
 
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoia2Fyb2xpbmFrYXIiLCJhIjoiY2p6ZzBxam1vMGhkcDNldDZ5d3NsNnJ0ciJ9.hQqCDQZLI-xaxEPbUWMGmA";
 
@@ -64,7 +64,7 @@ export class Map extends React.Component {
                         key={value.id}
                         draggable={true}
                         onDragEnd={(event) => this.updateMarker(event, value.id)}>
-                    <FontAwesomeIcon icon={faThumbtack} />
+                    <FontAwesomeIcon icon={faMapMarkerAlt} />
                 </Marker>)
         }
 

@@ -1,6 +1,9 @@
 import React from 'react';
-import ReactMapGL,{Marker} from 'react-map-gl';
+import ReactMapGL, {Marker} from 'react-map-gl';
 import {MarkerModel} from "../model";
+import './Map.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbtack } from '@fortawesome/free-solid-svg-icons'
 
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoia2Fyb2xpbmFrYXIiLCJhIjoiY2p6ZzBxam1vMGhkcDNldDZ5d3NsNnJ0ciJ9.hQqCDQZLI-xaxEPbUWMGmA";
 
@@ -9,20 +12,20 @@ export class Map extends React.Component {
     state = {
         style: 'mapbox://styles/mapbox/light-v9',
         viewport: {
-            width: 600,
-            height: 400,
-            latitude: 37.7577,
-            longitude: -122.4376,
+            width: 1000,
+            height: 600,
+            latitude: 52.2297700,
+            longitude: 21.0117800,
             zoom: 8
         },
         markers: []
     };
 
-    onViewportChange(viewport){
+    onViewportChange(viewport) {
         this.setState(viewport);
     }
 
-    addMarker(event){
+    addMarker(event) {
         this.setState({
             style: this.state.style,
             viewport: this.state.viewport,
@@ -31,11 +34,11 @@ export class Map extends React.Component {
         this.props.onMarkersChange(this.state.markers);
     }
 
-    updateMarker(event, id){
+    updateMarker(event, id) {
         const updatedMarkers = [];
 
-        for (const marker of this.state.markers){
-            if (id === marker.id){
+        for (const marker of this.state.markers) {
+            if (id === marker.id) {
                 marker.longitude = event.lngLat[0];
                 marker.latitude = event.lngLat[1];
             }
@@ -57,25 +60,27 @@ export class Map extends React.Component {
         for (const value of this.state.markers) {
 
             markersElement.push(
-                <Marker latitude={value.latitude} longitude={value.longitude} offsetLeft={-20} offsetTop={-10}
+                <Marker latitude={value.latitude} longitude={value.longitude} offsetLeft={-10} offsetTop={-20}
                         key={value.id}
                         draggable={true}
-                        onDragEnd={(event) => this.updateMarker(event, value.id) }>
-                    <div>A</div>
+                        onDragEnd={(event) => this.updateMarker(event, value.id)}>
+                    <FontAwesomeIcon icon={faThumbtack} />
                 </Marker>)
         }
 
         return (
-            <ReactMapGL
-                {...this.state.viewport}
-                mapStyle={this.state.style}
-                mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-                onViewportChange={(viewport) => this.onViewportChange({viewport})}
-                onClick={(event) => this.addMarker(event)}
-            >
-             {markersElement}
+            <div className="mapContent">
+                <ReactMapGL
+                    {...this.state.viewport}
+                    mapStyle={this.state.style}
+                    mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+                    onViewportChange={(viewport) => this.onViewportChange({viewport})}
+                    onClick={(event) => this.addMarker(event)}
+                >
+                    {markersElement}
 
-            </ReactMapGL>
+                </ReactMapGL>
+            </div>
         );
     }
 }
